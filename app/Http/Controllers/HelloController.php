@@ -104,8 +104,11 @@ class HelloController extends Controller
     //     return $response->content();
     // }
 
-    public function index () {
-        $data = ['msg' => 'これはコントローラから渡されたメッセージです。'];
+    public function index ($id = 'zero') {
+        $data = [
+            'msg' => 'これはコントローラから渡されたメッセージです。',
+            'id' => $id
+        ];
         return view('hello.index', $data);
     }
 }
