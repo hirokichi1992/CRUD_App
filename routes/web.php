@@ -13,6 +13,8 @@
 
 # use Illuminate\Routing\Route;
 
+use App\Http\Controllers\HelloController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -48,6 +50,7 @@ Route::get('/', function () {
 //Route::get('hello', 'HelloController');
 
 Route::get('hello', 'HelloController@index');
+Route::post('hello', 'HelloController@post');
 
 // Route::get('hello', function () {
 //     return view('hello.index');
