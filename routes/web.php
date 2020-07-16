@@ -45,4 +45,6 @@ Route::get('/', function () {
 // Route::get('hello/other', 'HelloController@other');
 
 // シングルアクションコントローラ
-Route::get('hello', 'HelloController');
+//Route::get('hello', 'HelloController');
+
+Route::get('hello', 'HelloController@index');
