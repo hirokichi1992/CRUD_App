@@ -10,15 +10,19 @@
     <p>ここが本文のコンテンツです。</p>
     <p>必要なだけ記述できます。</p>
 
-    @component('components.message')
+    <!-- componentとして使う場合 -->
+    <!-- @component('components.message')
     @slot('msg_title')
-    CAUTION!
+        CAUTION!
     @endslot
 
     @slot('msg_content')
-    これはメッセージの表示です。
+        これはメッセージの表示です。
     @endslot
-    @endcomponent
+    @endcomponent -->
+
+    <!-- サブビューとして使う場合 -->
+    @include('components.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。'])
     
 @endsection
 
