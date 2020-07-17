@@ -8,9 +8,8 @@
 
 @section('content')
     <p>ここが本文のコンテンツです。</p>
-    <ul>
-        @each('components.item', $data, 'item')
-    </ul>
+    <p>Controller Value<br>'message' = {{$message}}</p>
+    <p>ViewComposer Value<br>'view_message' = {{$view_message}}</p>
 
     <!-- componentとして使う場合 -->
     <!-- @component('components.message')
