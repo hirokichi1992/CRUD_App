@@ -105,7 +105,13 @@ class HelloController extends Controller
     // }
 
     public function index () {
-        $data = ['one', 'two', 'three', 'four', 'five'];
+        $data = [
+            ['name'=>'hirokichi1', 'mail' => 'hirokichi1@example.com'] ,
+            ['name'=>'hirokichi2', 'mail' => 'hirokichi2@example.com'] ,
+            ['name'=>'hirokichi3', 'mail' => 'hirokichi3@example.com'] ,
+            ['name'=>'hirokichi4', 'mail' => 'hirokichi4@example.com'] ,
+            ['name'=>'hirokichi5', 'mail' => 'hirokichi5@example.com'] 
+        ];
 
         return view('hello.index', ['data'=> $data]);
     }

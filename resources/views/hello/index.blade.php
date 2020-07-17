@@ -8,7 +8,9 @@
 
 @section('content')
     <p>ここが本文のコンテンツです。</p>
-    <p>必要なだけ記述できます。</p>
+    <ul>
+        @each('components.item', $data, 'item')
+    </ul>
 
     <!-- componentとして使う場合 -->
     <!-- @component('components.message')
@@ -22,7 +24,7 @@
     @endcomponent -->
 
     <!-- サブビューとして使う場合 -->
-    @include('components.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。'])
+    <!-- @include('components.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。']) -->
     
 @endsection
 
