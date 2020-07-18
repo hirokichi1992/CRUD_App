@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Requests\HelloRequest;
 
 // global $head, $style, $body, $end;
 // $head = '<html><head>';
@@ -109,15 +110,17 @@ class HelloController extends Controller
         return view('hello.index', ['msg' => 'フォームを入力して下さい：']);
     }
 
-    public function post(Request $request) {
+    public function post(HelloRequest $request) {
         
-        $validate_rule = [
-            'name' => 'required',
-            'mail' => 'email',
-            'age' => 'numeric|between:0,150',
-        ];
+        // フォームリクエストを使わず個別にバリデーションチェックする時の記述方法
+        // $validate_rule = [
+        //     'name' => 'required',
+        //     'mail' => 'email',
+        //     'age' => 'numeric|between:0,150',
+        // ];
 
-        $this->validate($request, $validate_rule);
+        // $this->validate($request, $validate_rule);
+
         return view('hello.index', ['msg'=> '正しく入力されました！']);
     }
 }
