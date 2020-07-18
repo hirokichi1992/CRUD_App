@@ -53,7 +53,8 @@ Route::get('/', function () {
 // 個別にミドルウェアを呼び出す場合
 // Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
 
-Route::get('hello', 'HelloController@index');
+// グループミドルウェアを呼び出す場合
+Route::get('hello', 'HelloController@index')->middleware('helo');
 Route::post('hello', 'HelloController@post');
 
 // Route::get('hello', function () {
