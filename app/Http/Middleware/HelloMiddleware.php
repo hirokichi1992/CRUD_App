@@ -15,15 +15,21 @@ class HelloMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $data = [
-            ['name' => 'taro', 'mail' => 'taro@yamada'],
-            ['name' => 'hanako', 'mail' => 'hanako@flower'],
-            ['name' => 'sachiko', 'mail' => 'sachiko@happy'],
-        ];
+        // コントローラのアクション実行後のレスポンスを$responseに格納
+        $response = $next($request);
 
-        // merge: <input name='name'>のnameをRequestに追加するメソッド　$request->dataで取り出す
-        $request->merge(['data'=>$data]);
-        
-        return $next($request);
+        // $responseからHTMLソースコードのテキストを取得する
+        $content = $response->content();
+
+        // <middleware>というタグを正規表現で置換する
+        $pattern = '/<middleware>(.*)<\/middleware>/i';
+        $replace = '<a href="http://$1">$1</a>';
+        $content = preg_replace($pattern, $replace, $content);
+
+        // レスポンスにコンテンツを設定する
+        $response->setContent($content);
+
+        // returnする
+        return $response;
     }
 }
