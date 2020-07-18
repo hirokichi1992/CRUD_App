@@ -14,6 +14,7 @@
 # use Illuminate\Routing\Route;
 
 use App\Http\Controllers\HelloController;
+use App\Http\Middleware\HelloMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,7 +50,7 @@ Route::get('/', function () {
 // シングルアクションコントローラ
 //Route::get('hello', 'HelloController');
 
-Route::get('hello', 'HelloController@index');
+Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
 Route::post('hello', 'HelloController@post');
 
 // Route::get('hello', function () {

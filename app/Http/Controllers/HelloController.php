@@ -104,9 +104,9 @@ class HelloController extends Controller
     //     return $response->content();
     // }
 
-    public function index () {
+    public function index (Request $request) {
 
-        return view('hello.index', ['message' => 'Controller message!']);
+        return view('hello.index', ['data' => $request->data]);
     }
 
     public function post(Request $request) {
