@@ -50,7 +50,10 @@ Route::get('/', function () {
 // シングルアクションコントローラ
 //Route::get('hello', 'HelloController');
 
-Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
+// 個別にミドルウェアを呼び出す場合
+// Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
+
+Route::get('hello', 'HelloController@index');
 Route::post('hello', 'HelloController@post');
 
 // Route::get('hello', function () {
