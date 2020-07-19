@@ -108,8 +108,19 @@ class HelloController extends Controller
 
     public function index(Request $request)
     {
+        // カスタムバリデータの作成
+        $validator = Validator::make($request->query(), [
+            'ID' => 'required',
+            'PASS' => 'required',
+        ]);
 
-        return view('hello.index', ['msg' => 'フォームを入力して下さい：']);
+        // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
+        if ($validator->fails()) {
+            $msg = 'クエリーに問題があります。';
+        } else {
+            $msg = 'ID, PASSを受け付けました。フォームを入力下さい。';
+        }
+        return view('hello.index', ['msg' => $msg]);
     }
 
     public function post(Request $request)
