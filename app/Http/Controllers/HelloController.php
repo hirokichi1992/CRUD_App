@@ -109,21 +109,22 @@ class HelloController extends Controller
     public function index(Request $request)
     {
         // カスタムバリデータの作成
-        $validator = Validator::make($request->query(), [
-            'ID' => 'required',
-            'PASS' => 'required',
-        ]);
+        // $validator = Validator::make($request->query(), [
+        //     'ID' => 'required',
+        //     'PASS' => 'required',
+        // ]);
 
         // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
-        if ($validator->fails()) {
-            $msg = 'クエリーに問題があります。';
-        } else {
-            $msg = 'ID, PASSを受け付けました。フォームを入力下さい。';
-        }
-        return view('hello.index', ['msg' => $msg]);
+        // if ($validator->fails()) {
+        //     $msg = 'クエリーに問題があります。';
+        // } else {
+        //     $msg = 'ID, PASSを受け付けました。フォームを入力下さい。';
+        // }
+
+        return view('hello.index', ['msg' => 'フォームを入力してください']);
     }
 
-    public function post(Request $request)
+    public function post(HelloRequest $request)
     {
 
         // フォームリクエストを使わず個別にバリデーションチェックする時の記述方法
@@ -135,38 +136,39 @@ class HelloController extends Controller
 
         // $this->validate($request, $validate_rule);
 
-        $rules = [
-            'name' => 'required',
-            'mail' => 'email',
-            'age' => 'numeric',
-        ];
+        // $rules = [
+        //     'name' => 'required',
+        //     'mail' => 'email',
+        //     'age' => 'numeric',
+        // ];
 
-        $messages = [
-            'name.required' => '名前は必ず入力して下さい。',
-            'mail.email' => 'メールアドレスが必要です。',
-            'age.min' => '年齢を0歳以上で記入下さい。',
-            'age.max' => '年齢を200歳以下で入力下さい。',
-        ];
+        // $messages = [
+        //     'name.required' => '名前は必ず入力して下さい。',
+        //     'mail.email' => 'メールアドレスが必要です。',
+        //     'age.min' => '年齢を0歳以上で記入下さい。',
+        //     'age.max' => '年齢を200歳以下で入力下さい。',
+        // ];
 
         // カスタムバリデータの作成
-        $validator = Validator::make($request->all(), $rules, $messages);
+        // $validator = Validator::make($request->all(), $rules, $messages);
 
         // 条件に応じたルールの追加（0歳以上）→ 真偽値を返し、falseの場合ルールを追加する
-        $validator->sometimes('age', 'min:0', function ($input) {
-            return !is_int($input->age);
-        });
+        // $validator->sometimes('age', 'min:0', function ($input) {
+        //     return !is_int($input->age);
+        // });
 
         // 条件に応じたルールの追加（200歳以下）→ 真偽値を返し、falseの場合ルールを追加する
-        $validator->sometimes('age', 'max:200', function ($input) {
-            return !is_int($input->age);
-        });
+        // $validator->sometimes('age', 'max:200', function ($input) {
+        //     return !is_int($input->age);
+        // });
 
         // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
-        if ($validator->fails()) {
-            return redirect('/hello')
-                ->withErrors($validator)
-                ->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect('/hello')
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
+
         return view('hello.index', ['msg' => '正しく入力されました！']);
     }
 }
