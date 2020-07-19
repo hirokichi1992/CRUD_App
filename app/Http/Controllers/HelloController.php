@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
+use Validator;
 
 // global $head, $style, $body, $end;
 // $head = '<html><head>';
@@ -42,33 +43,33 @@ class HelloController extends Controller
     // }
 
     // シングルアクションコントローラ
-//     public function __invoke()
-//     {
-//         return <<< EOF
-//         <html>
-//         <head>
-//         <title>Hello</title>
-//         <style>
-//         body {
-//             font-size:16pt;
-//             text-align:left;
-//             color:#999;
-//         } 
-//         h1 {
-//             font-size:30pt;
-//             text-align:right;
-//             color:#eee;
-//             margin:-15px 0px 0px 0px;
-//         }
-//         </style>
-//         </head>
-//         <body>
-//             <h1>Single Action</h1>
-//             <p>これはシングルアクションコントローラのアクションです。</p>
-//         </body>
-//         </html>
-//     EOF;
-// }
+    //     public function __invoke()
+    //     {
+    //         return <<< EOF
+    //         <html>
+    //         <head>
+    //         <title>Hello</title>
+    //         <style>
+    //         body {
+    //             font-size:16pt;
+    //             text-align:left;
+    //             color:#999;
+    //         } 
+    //         h1 {
+    //             font-size:30pt;
+    //             text-align:right;
+    //             color:#eee;
+    //             margin:-15px 0px 0px 0px;
+    //         }
+    //         </style>
+    //         </head>
+    //         <body>
+    //             <h1>Single Action</h1>
+    //             <p>これはシングルアクションコントローラのアクションです。</p>
+    //         </body>
+    //         </html>
+    //     EOF;
+    // }
 
     // public function index(Request $request, Response $response) {
     //     $html = <<<EOF
@@ -105,13 +106,15 @@ class HelloController extends Controller
     //     return $response->content();
     // }
 
-    public function index (Request $request) {
+    public function index(Request $request)
+    {
 
         return view('hello.index', ['msg' => 'フォームを入力して下さい：']);
     }
 
-    public function post(HelloRequest $request) {
-        
+    public function post(Request $request)
+    {
+
         // フォームリクエストを使わず個別にバリデーションチェックする時の記述方法
         // $validate_rule = [
         //     'name' => 'required',
@@ -121,6 +124,19 @@ class HelloController extends Controller
 
         // $this->validate($request, $validate_rule);
 
-        return view('hello.index', ['msg'=> '正しく入力されました！']);
+        // カスタムバリデータの作成
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'mail' => 'email',
+            'age' => 'numeric|between:0,150',
+        ]);
+
+        // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
+        if ($validator->fails()) {
+            return redirect('/hello')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        return view('hello.index', ['msg' => '正しく入力されました！']);
     }
 }
