@@ -135,12 +135,21 @@ class HelloController extends Controller
 
         // $this->validate($request, $validate_rule);
 
-        // カスタムバリデータの作成
-        $validator = Validator::make($request->all(), [
+        $rules = [
             'name' => 'required',
             'mail' => 'email',
             'age' => 'numeric|between:0,150',
-        ]);
+        ];
+
+        $messages = [
+            'name.required' => '名前は必ず入力して下さい。',
+            'mail.email' => 'メールアドレスが必要です。',
+            'age.numeric' => '年齢を整数で記入下さい。',
+            'age.between' => '年齢は0~150の間で入力下さい。',
+        ];
+
+        // カスタムバリデータの作成
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
         if ($validator->fails()) {
