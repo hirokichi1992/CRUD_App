@@ -138,18 +138,28 @@ class HelloController extends Controller
         $rules = [
             'name' => 'required',
             'mail' => 'email',
-            'age' => 'numeric|between:0,150',
+            'age' => 'numeric',
         ];
 
         $messages = [
             'name.required' => '名前は必ず入力して下さい。',
             'mail.email' => 'メールアドレスが必要です。',
-            'age.numeric' => '年齢を整数で記入下さい。',
-            'age.between' => '年齢は0~150の間で入力下さい。',
+            'age.min' => '年齢を0歳以上で記入下さい。',
+            'age.max' => '年齢を200歳以下で入力下さい。',
         ];
 
         // カスタムバリデータの作成
         $validator = Validator::make($request->all(), $rules, $messages);
+
+        // 条件に応じたルールの追加（0歳以上）→ 真偽値を返し、falseの場合ルールを追加する
+        $validator->sometimes('age', 'min:0', function ($input) {
+            return !is_int($input->age);
+        });
+
+        // 条件に応じたルールの追加（200歳以下）→ 真偽値を返し、falseの場合ルールを追加する
+        $validator->sometimes('age', 'max:200', function ($input) {
+            return !is_int($input->age);
+        });
 
         // カスタムバリデータに引っ掛かった時の処理（リダイレクト＋エラーメッセージ＋入力情報）
         if ($validator->fails()) {
