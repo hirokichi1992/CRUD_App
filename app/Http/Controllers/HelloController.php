@@ -121,10 +121,17 @@ class HelloController extends Controller
         //     $msg = 'ID, PASSを受け付けました。フォームを入力下さい。';
         // }
 
-        return view('hello.index', ['msg' => 'フォームを入力してください']);
+        // クライアントからのクッキーの受け取り
+        if ($request->hasCookie('msg')) {
+            $msg = 'Cookie: ' . $request->cookie('msg');
+        } else {
+            $msg = '※クッキーは存在しません。';
+        }
+
+        return view('hello.index', ['msg' => $msg]);
     }
 
-    public function post(HelloRequest $request)
+    public function post(Request $request)
     {
 
         // フォームリクエストを使わず個別にバリデーションチェックする時の記述方法
@@ -169,6 +176,24 @@ class HelloController extends Controller
         //         ->withInput();
         // }
 
-        return view('hello.index', ['msg' => '正しく入力されました！']);
+        // バリデーション設定
+        $validate_rule = [
+            'msg' => 'required',
+        ];
+        $this->validate($request, $validate_rule);
+
+        // バリデーション後のmsgを保存
+        $msg = $request->msg;
+
+        // Responseオブジェクトを用意し、Viewテンプレートの設定と値をresponseインスタンスへ渡す
+        $response = response()->view('hello.index', 
+        [
+            'msg' => '「'. $msg . '」をクッキーに保存しました。'
+        ]);
+
+        // responseインスタンスへクッキーを設定する：cookie(キー、値、分数)
+        $response->cookie('msg', $msg, 100);
+
+        return $response;
     }
 }
