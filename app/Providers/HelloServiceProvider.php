@@ -30,9 +30,14 @@ class HelloServiceProvider extends ServiceProvider
         View::composer('hello.index', 'App\Http\Composers\HelloComposer');
 
         // HelloValidatorを呼び出す
-        $validator = $this->app['validator'];
-        $validator->resolver(function($translator, $data, $rules, $messages){
-            return new HelloValidator($translator, $data, $rules, $messages);
+        // $validator = $this->app['validator'];
+        // $validator->resolver(function($translator, $data, $rules, $messages){
+        //     return new HelloValidator($translator, $data, $rules, $messages);
+        // });
+
+        // Validator::extendを使用して直接サービスプロバイダーに追加する方法（1つのコントローラでしか使わないような場合に使う方法）
+        Validator::extend('hello', function($attribute, $value, $parameters, $validator) {
+            return $value % 2 == 0;
         });
     }
 }
