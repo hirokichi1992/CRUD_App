@@ -136,7 +136,7 @@ class HelloController extends Controller
         } else {
             $items = DB::select('select * from people');
         }
-        
+
         return view('hello.index', ['items' => $items]);
     }
 
@@ -195,14 +195,34 @@ class HelloController extends Controller
         $msg = $request->msg;
 
         // Responseオブジェクトを用意し、Viewテンプレートの設定と値をresponseインスタンスへ渡す
-        $response = response()->view('hello.index', 
-        [
-            'msg' => '「'. $msg . '」をクッキーに保存しました。'
-        ]);
+        $response = response()->view(
+            'hello.index',
+            [
+                'msg' => '「' . $msg . '」をクッキーに保存しました。'
+            ]
+        );
 
         // responseインスタンスへクッキーを設定する：cookie(キー、値、分数)
         $response->cookie('msg', $msg, 100);
 
         return $response;
+    }
+
+    public function add()
+    {
+        return view('hello.add');
+    }
+
+    public function create(Request $request)
+    {
+        $param = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
+        ];
+
+        DB::insert('insert into people (name, mail, age) values (:name, :mail, :age)', $param);
+
+        return redirect('/hello');
     }
 }

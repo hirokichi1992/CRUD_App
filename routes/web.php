@@ -57,6 +57,10 @@ Route::get('/', function () {
 Route::get('hello', 'HelloController@index');
 Route::post('hello', 'HelloController@post');
 
+// 新規作成
+Route::get('hello/add', 'HelloController@add');
+Route::post('hello/add', 'HelloController@create');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
