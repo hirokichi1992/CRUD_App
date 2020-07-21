@@ -226,7 +226,8 @@ class HelloController extends Controller
         return redirect('/hello');
     }
 
-    public function edit (Request $request) {
+    public function edit(Request $request)
+    {
         $param = [
             'id' => $request->id,
         ];
@@ -235,7 +236,8 @@ class HelloController extends Controller
         return view('hello.edit', ['form' => $item[0]]);
     }
 
-    public function update (Request $request) {
+    public function update(Request $request)
+    {
         $param = [
             'id' => $request->id,
             'name' => $request->name,
@@ -244,6 +246,28 @@ class HelloController extends Controller
         ];
 
         DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $param);
+        return redirect('/hello');
+    }
+
+    public function del(Request $request)
+    {
+        $param = [
+            $id = $request->id,
+        ];
+
+        $item = DB::select('select * from people where id = :id', $param);
+
+        return view('hello.del', ['form' => $item[0]]);
+    }
+
+    public function remove(Request $request)
+    {
+        $param = [
+            'id' => $request->id,
+        ];
+
+        DB::delete('delete from people where id = :id', $param);
+
         return redirect('/hello');
     }
 }
