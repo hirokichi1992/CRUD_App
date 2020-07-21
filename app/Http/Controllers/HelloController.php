@@ -274,13 +274,14 @@ class HelloController extends Controller
         return redirect('/hello');
     }
 
-    public function show (Request $request) {
-        $name = $request->name;
-        $items = DB::table('people')
-        ->where('name', 'like', '%'. $name . '%')
-        ->orwhere('mail', 'like', '%'. $name . '%')
-        ->get();
+    public function show(Request $request)
+    {
+        $max = $request->max;
+        $min = $request->min;
 
+        $items = DB::table('people')
+            ->whereRaw('age >= ? and age <= ?', [$min, $max])
+            ->get();
         return view('hello.show', ['items' => $items]);
     }
 }
