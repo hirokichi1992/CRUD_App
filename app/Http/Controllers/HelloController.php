@@ -130,12 +130,15 @@ class HelloController extends Controller
         // }
 
         // DBクラスを利用する
-        if (isset($request->id)) {
-            $param = ['id' => $request->id];
-            $items = DB::select('select * from people where id = :id', $param);
-        } else {
-            $items = DB::select('select * from people');
-        }
+        // if (isset($request->id)) {
+        //     $param = ['id' => $request->id];
+        //     $items = DB::select('select * from people where id = :id', $param);
+        // } else {
+        //     $items = DB::select('select * from people');
+        // }
+
+        //クエリビルダを利用する
+        $items = DB::table('people')->get();
 
         return view('hello.index', ['items' => $items]);
     }
@@ -252,7 +255,7 @@ class HelloController extends Controller
     public function del(Request $request)
     {
         $param = [
-            $id = $request->id,
+            'id' => $request->id
         ];
 
         $item = DB::select('select * from people where id = :id', $param);
