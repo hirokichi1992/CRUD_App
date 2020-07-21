@@ -276,12 +276,12 @@ class HelloController extends Controller
 
     public function show(Request $request)
     {
-        $max = $request->max;
-        $min = $request->min;
-
+        $page = $request->page;
         $items = DB::table('people')
-            ->whereRaw('age >= ? and age <= ?', [$min, $max])
+            ->offset($page * 3)
+            ->limit(3)
             ->get();
+
         return view('hello.show', ['items' => $items]);
     }
 }
