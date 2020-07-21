@@ -61,6 +61,10 @@ Route::post('hello', 'HelloController@post');
 Route::get('hello/add', 'HelloController@add');
 Route::post('hello/add', 'HelloController@create');
 
+// 更新
+Route::get('hello/edit', 'HelloController@edit');
+Route::post('hello/edit', 'HelloController@update');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
