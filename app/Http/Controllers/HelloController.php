@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
 use Validator;
+use Illuminate\Support\FACADES\DB;
 
 // global $head, $style, $body, $end;
 // $head = '<html><head>';
@@ -122,13 +123,16 @@ class HelloController extends Controller
         // }
 
         // クライアントからのクッキーの受け取り
-        if ($request->hasCookie('msg')) {
-            $msg = 'Cookie: ' . $request->cookie('msg');
-        } else {
-            $msg = '※クッキーは存在しません。';
-        }
+        // if ($request->hasCookie('msg')) {
+        //     $msg = 'Cookie: ' . $request->cookie('msg');
+        // } else {
+        //     $msg = '※クッキーは存在しません。';
+        // }
 
-        return view('hello.index', ['msg' => $msg]);
+        // DBクラスを利用する
+        $items = DB::select('select * from people');
+        
+        return view('hello.index', ['items' => $items]);
     }
 
     public function post(Request $request)
