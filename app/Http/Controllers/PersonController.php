@@ -23,7 +23,13 @@ class PersonController extends Controller
     // ID検索アクション
     public function search(Request $request)
     {
-        $item = Person::nameEqual($request->input)->first();
+        $min = $request->input * 1;
+        $max = $min + 10;
+
+        $item = Person::ageGreaterThan($min)
+            ->ageLessThan($max)
+            ->first();
+
         $param = [
             'input' => $request->input,
             'item' => $item,
