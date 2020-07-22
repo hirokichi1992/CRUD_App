@@ -283,22 +283,34 @@ class HelloController extends Controller
 
     public function del(Request $request)
     {
-        $param = [
-            'id' => $request->id
-        ];
+        // DBクラスを利用する
+        // $param = [
+        //     'id' => $request->id
+        // ];
 
-        $item = DB::select('select * from people where id = :id', $param);
+        // $item = DB::select('select * from people where id = :id', $param);
 
-        return view('hello.del', ['form' => $item[0]]);
+        // クエリビルダを利用する
+        $item = DB::table('people')
+            ->where('id', $request->id)
+            ->first();
+
+        return view('hello.del', ['form' => $item]);
     }
 
     public function remove(Request $request)
     {
-        $param = [
-            'id' => $request->id,
-        ];
+        // DBクラスを利用する
+        // $param = [
+        //     'id' => $request->id,
+        // ];
 
-        DB::delete('delete from people where id = :id', $param);
+        // DB::delete('delete from people where id = :id', $param);
+
+        // クエリビルダを利用する
+        DB::table('people')
+            ->where('id', $request->id)
+            ->delete();
 
         return redirect('/hello');
     }
