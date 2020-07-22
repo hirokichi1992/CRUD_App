@@ -13,4 +13,22 @@ class PersonController extends Controller
         $items = Person::all();
         return view('person.index', ['items' => $items]);
     }
+
+    // ID検索ページ
+    public function find(Request $request)
+    {
+        return view('person.find', ['input' => ""]);
+    }
+
+    // ID検索アクション
+    public function search(Request $request)
+    {
+        $item = Person::find($request->input);
+        $param = [
+            'input' => $request->input,
+            'item' => $item,
+        ];
+
+        return view('person.find', $param);
+    }
 }

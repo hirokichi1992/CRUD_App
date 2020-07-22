@@ -75,6 +75,10 @@ Route::get('hello/show', 'HelloController@show');
 // Personモデル
 Route::get('person', 'PersonController@index');
 
+//検索
+Route::get('person/find', 'PersonController@find');
+Route::post('person/find', 'PersonController@search');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
