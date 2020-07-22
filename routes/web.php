@@ -72,6 +72,9 @@ Route::post('hello/del', 'HelloController@remove');
 // showメソッド（クエリビルダ）
 Route::get('hello/show', 'HelloController@show');
 
+// Personモデル
+Route::get('person', 'PersonController@index');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
