@@ -23,7 +23,7 @@ class PersonController extends Controller
     // ID検索アクション
     public function search(Request $request)
     {
-        $item = Person::find($request->input);
+        $item = Person::where('name', $request->input)->first();
         $param = [
             'input' => $request->input,
             'item' => $item,
