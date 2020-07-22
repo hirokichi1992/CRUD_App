@@ -241,24 +241,43 @@ class HelloController extends Controller
 
     public function edit(Request $request)
     {
-        $param = [
-            'id' => $request->id,
-        ];
-        $item = DB::select('select * from people where id = :id', $param);
+        // DBクラスを利用する
+        // $param = [
+        //     'id' => $request->id,
+        // ];
+        // $item = DB::select('select * from people where id = :id', $param);
 
-        return view('hello.edit', ['form' => $item[0]]);
+        // クエリビルダを利用する
+        $item = DB::table('people')
+            ->where('id', $request->id)
+            ->first();
+
+        return view('hello.edit', ['form' => $item]);
     }
 
     public function update(Request $request)
     {
+        // DBクラスを利用する
+        // $param = [
+        //     'id' => $request->id,
+        //     'name' => $request->name,
+        //     'mail' => $request->mail,
+        //     'age' => $request->age,
+        // ];
+
+        // DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $param);
+
+        // クエリビルダを利用する
         $param = [
-            'id' => $request->id,
             'name' => $request->name,
             'mail' => $request->mail,
             'age' => $request->age,
         ];
 
-        DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $param);
+        DB::table('people')
+            ->where('id', $request->id)
+            ->update($param);
+
         return redirect('/hello');
     }
 
