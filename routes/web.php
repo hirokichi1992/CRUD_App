@@ -91,6 +91,13 @@ Route::post('person/edit', 'PersonController@update');
 Route::get('person/del', 'PersonController@delete');
 Route::post('person/del', 'PersonController@remove');
 
+// 掲示板トップ
+Route::get('board', 'BoardController@index');
+
+// 掲示板投稿ページ
+Route::get('board/add', 'BoardController@add');
+Route::post('board/add', 'BoardController@create');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
