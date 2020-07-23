@@ -79,6 +79,10 @@ Route::get('person', 'PersonController@index');
 Route::get('person/find', 'PersonController@find');
 Route::post('person/find', 'PersonController@search');
 
+// 新規作成（Eloquant）
+Route::get('person/add', 'PersonController@add');
+Route::post('person/add', 'PersonController@create');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });

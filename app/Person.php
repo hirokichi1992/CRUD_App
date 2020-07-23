@@ -5,9 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Scopes\ScopePerson;
+use Illuminate\Contracts\Auth\Guard;
 
 class Person extends Model
 {
+    // 'id'はプライマリーキーなのでガードしておく（レコード追加時のid指定を不要にする）
+    protected $guarded = array('id');
+
+    public static $rules = array(
+        'name' => 'required',
+        'mail' => 'email',
+        'age' => 'integer|min:0|max:150'
+    );
+
     //
     public function getData()
     {
@@ -20,16 +30,19 @@ class Person extends Model
         return $query->where('name', $str);
     }
 
-    public function scopeAgeGreaterThan($query, $n) {
+    public function scopeAgeGreaterThan($query, $n)
+    {
         return $query->where('age', '>=', $n);
     }
 
-    public function scopeAgeLessThan($query, $n) {
+    public function scopeAgeLessThan($query, $n)
+    {
         return $query->where('age', '<=', $n);
     }
 
     // グローバルスコープ(ageが20以上のレコードのみ取得)
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
         // static::addGlobalScope('age', function(Builder $builder) {
@@ -37,6 +50,6 @@ class Person extends Model
         // });
 
         // Scopeクラスの利用（複数モデルやその他プロジェクトで使用可能）
-        static::addGlobalScope(new ScopePerson);
+        //static::addGlobalScope(new ScopePerson);
     }
 }
