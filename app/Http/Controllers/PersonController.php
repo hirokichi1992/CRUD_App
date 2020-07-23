@@ -53,4 +53,32 @@ class PersonController extends Controller
         $person->fill($form)->save();
         return redirect('/person');
     }
+
+    // 編集
+    public function edit(Request $request)
+    {
+        $person = Person::find($request->id);
+        return view('person.edit', ['form' => $person]);
+    }
+
+    public function update(Request $request)
+    {
+        // バリデーション
+        $this->validate($request, Person::$rules);
+
+        // 編集対象レコードの特定
+        $person = Person::find($request->id);
+
+        // 送信されたフォームを取得
+        $form = $request->all();
+
+        // CSRF用非表示フィールド「_token」を削除
+        unset($form['_token']);
+
+        // インスタンスに値を設定（fill：個々のプロパティをまとめて設定できるメソッド）
+        $person->fill($form)->save();
+
+        // リダイレクト
+        return redirect('/person');
+    }
 }
