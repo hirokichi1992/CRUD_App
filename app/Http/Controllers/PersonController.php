@@ -81,4 +81,17 @@ class PersonController extends Controller
         // リダイレクト
         return redirect('/person');
     }
+
+    // 削除
+    public function delete(Request $request)
+    {
+        $person = Person::find($request->id);
+        return view('person.del', ['form' => $person]);
+    }
+
+    public function remove(Request $request)
+    {
+        Person::find($request->id)->delete();
+        return redirect('/person');
+    }
 }
