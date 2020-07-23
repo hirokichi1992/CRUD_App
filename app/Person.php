@@ -24,6 +24,12 @@ class Person extends Model
         return $this->id . ': ' . $this->name . ' (' . $this->age . ')';
     }
 
+    // has one結合
+    public function board()
+    {
+        return $this->hasone('App\Board');
+    }
+
     // ローカルスコープ（name検索）
     public function scopeNameEqual($query, $str)
     {
