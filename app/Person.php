@@ -25,10 +25,16 @@ class Person extends Model
     }
 
     // has one結合
-    public function board()
+    // public function board()
+    // {
+    //     return $this->hasone('App\Board');
+    // }
+
+    // has many結合
+    public function boards()
     {
-        return $this->hasone('App\Board');
-    }
+        return $this->hasmany('App\Board');
+    }    
 
     // ローカルスコープ（name検索）
     public function scopeNameEqual($query, $str)
