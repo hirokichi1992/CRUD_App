@@ -104,6 +104,10 @@ Route::resource('rest', 'RestappController');
 // Restapp新規データ登録画面
 Route::get('hello/rest', 'HelloController@rest');
 
+// Session
+Route::get('hello/session', 'HelloController@ses_get');
+Route::post('hello/session', 'HelloController@ses_put');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
