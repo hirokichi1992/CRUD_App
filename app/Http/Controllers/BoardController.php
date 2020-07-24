@@ -10,7 +10,9 @@ class BoardController extends Controller
     //
     public function index (Request $request)
     {
-        $items = Board::all();
+        // Eagerローディング（DBへのアクセス数減を目的とする）
+        // $items = Board::all();
+        $items = Board::with('person')->get();
         return view('board.index', ['items' => $items]);
     }
 
