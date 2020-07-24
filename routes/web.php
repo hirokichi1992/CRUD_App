@@ -101,6 +101,9 @@ Route::post('board/add', 'BoardController@create');
 // Restapp
 Route::resource('rest', 'RestappController');
 
+// Restapp新規データ登録画面
+Route::get('hello/rest', 'HelloController@rest');
+
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });

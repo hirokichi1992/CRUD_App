@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
+use App\Restdata;
 use Validator;
 use Illuminate\Support\FACADES\DB;
 
@@ -324,5 +325,10 @@ class HelloController extends Controller
             ->get();
 
         return view('hello.show', ['items' => $items]);
+    }
+
+    public function rest(Request $request)
+    {
+        return view('hello.rest');
     }
 }
