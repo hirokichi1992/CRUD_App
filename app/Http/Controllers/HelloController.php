@@ -142,9 +142,14 @@ class HelloController extends Controller
         //$items = DB::table('people')->orderBy('age', 'asc')->get();
 
         // simplePaginateを利用する
-        $items = DB::table('people')->orderBy('age', 'asc')->simplePaginate(5);
+        $sort = $request->sort;
+        $items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
+        $params = [
+            'items' => $items,
+            'sort' => $sort,
+        ];
 
-        return view('hello.index', ['items' => $items]);
+        return view('hello.index', $params);
     }
 
     public function post(Request $request)
