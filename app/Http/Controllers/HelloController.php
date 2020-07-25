@@ -141,6 +141,9 @@ class HelloController extends Controller
         //クエリビルダを利用する
         $items = DB::table('people')->orderBy('age', 'asc')->get();
 
+        // simplePaginateを利用する
+        $items = DB::table('people')->simplePaginate(5);
+
         return view('hello.index', ['items' => $items]);
     }
 
