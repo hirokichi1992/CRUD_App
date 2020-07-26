@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
 use App\Person;
 use App\Restdata;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\FACADES\DB;
 
@@ -147,12 +148,16 @@ class HelloController extends Controller
 
         // DBクラスを利用した場合
         //$items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
+
+        // ログインしているUserモデルインスタンスを取得
+        $user = Auth::user();
         
         // モデルを利用した場合
         $items = Person::orderBy($sort, 'asc')->paginate(5);
         $params = [
             'items' => $items,
             'sort' => $sort,
+            'user' => $user,
         ];
 
         return view('hello.index', $params);
