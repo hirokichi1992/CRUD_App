@@ -149,7 +149,7 @@ class HelloController extends Controller
         //$items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
         
         // モデルを利用した場合
-        $items = Person::orderBy($sort, 'asc')->simplePaginate(5);
+        $items = Person::orderBy($sort, 'asc')->paginate(5);
         $params = [
             'items' => $items,
             'sort' => $sort,
