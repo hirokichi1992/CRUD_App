@@ -151,7 +151,7 @@ class HelloController extends Controller
 
         // ログインしているUserモデルインスタンスを取得
         $user = Auth::user();
-        
+
         // モデルを利用した場合
         $items = Person::orderBy($sort, 'asc')->paginate(5);
         $params = [
@@ -352,17 +352,43 @@ class HelloController extends Controller
     }
 
     // session_get
-    public function ses_get (Request $request)
+    public function ses_get(Request $request)
     {
         $ses_data = $request->session()->get('msg');
         return view('hello.session', ['session_data' => $ses_data]);
     }
 
     // session_post
-    public function ses_put (Request $request)
+    public function ses_put(Request $request)
     {
         $msg = $request->input;
         $request->session()->put('msg', $msg);
         return redirect('/hello/session');
+    }
+
+    // カスタムログイン機能
+    public function getAuth(Request $request)
+    {
+        $param = ['message' => "ログインして下さい。"];
+        return view('hello.auth', $param);
+    }
+
+    public function postAuth(Request $request)
+    {
+        // フォームから入力値（email, password）を取得
+        $email = $request->email;
+        $password = $request->password;
+
+        // ログイン処理
+        if (Auth::attempt([
+            'email' => $email,
+            'password' => $password,
+        ])) {
+            $msg = 'ログインしました。（' . Auth::user()->name . 'さん)';
+        } else {
+            $msg = 'ログインに失敗しました。';
+        }
+
+        return view('hello.auth', ['message' => $msg]);
     }
 }

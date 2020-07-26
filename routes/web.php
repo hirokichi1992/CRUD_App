@@ -114,6 +114,12 @@ Route::post('hello/session', 'HelloController@ses_put');
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
+
+// カスタムログイン
+Route::get('hello/auth', 'HelloController@getAuth');
+Route::post('hello/auth', 'HelloController@postAuth');
+
+// Auth自動生成
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
