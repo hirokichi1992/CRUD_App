@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
+use App\Person;
 use App\Restdata;
 use Validator;
 use Illuminate\Support\FACADES\DB;
@@ -143,7 +144,12 @@ class HelloController extends Controller
 
         // simplePaginateを利用する
         $sort = $request->sort;
-        $items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
+
+        // DBクラスを利用した場合
+        //$items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
+        
+        // モデルを利用した場合
+        $items = Person::orderBy($sort, 'asc')->simplePaginate(5);
         $params = [
             'items' => $items,
             'sort' => $sort,
