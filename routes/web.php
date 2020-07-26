@@ -54,7 +54,10 @@ Route::get('/', function () {
 // Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
 
 // グループミドルウェアを呼び出す場合
-Route::get('hello', 'HelloController@index');
+//Route::get('hello', 'HelloController@index')->middleware('helo');
+
+// トップページ
+Route::get('hello', 'HelloController@index')->middleware('auth');
 Route::post('hello', 'HelloController@post');
 
 // 新規作成
