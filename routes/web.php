@@ -111,3 +111,6 @@ Route::post('hello/session', 'HelloController@ses_put');
 // Route::get('hello', function () {
 //     return view('hello.index');
 // });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
