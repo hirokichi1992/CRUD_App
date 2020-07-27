@@ -32,7 +32,7 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->define(Person::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'mail' => $faker->safeEail,
+        'mail' => $faker->safeEmail,
         'age' => random_int(1,99),
     ];
 });
