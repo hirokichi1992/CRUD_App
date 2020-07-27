@@ -34,21 +34,26 @@
 
 @section('content')
 @if(Auth::check())
-<p>USER: {{$user->name. '（'. $user->email . '）'}}</p>
+<p>こんにちは「 {{$user->name. '（'. $user->email . '）'}}」さん</p>
 @else
 <p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">登録</a>）</p>
 @endif
-<table>
+<button type="button" onclick="location.href='/hello/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
+<table style="margin-bottom: 1rem;">
     <tr>
+        <th><a href="hello?sort=id">ID</a></th>
         <th><a href="hello?sort=name">Name</a></th>
         <th><a href="hello?sort=mail">Mail</a></th>
         <th><a href="hello?sort=age">Age</a></th>
+        <th><a>Delete</a></th>
     </tr>
     @foreach($items as $item)
     <tr>
+        <td><a href="hello/edit?id={{$item->id}}">{{$item->id}}</a></td>
         <td>{{$item->name}}</td>
         <td>{{$item->mail}}</td>
         <td>{{$item->age}}</td>
+        <td><a href="hello/del?id={{$item->id}}">Delete</a></td>
     </tr>
     @endforeach
 </table>

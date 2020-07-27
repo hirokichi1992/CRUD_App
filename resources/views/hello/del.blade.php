@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+<button type="button" onclick="history.back()" class="btn btn-primary" style="margin-bottom: 1rem;">Back</button>
 <form action="/hello/del" method="post">
     <table>
         @csrf
