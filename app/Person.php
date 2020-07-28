@@ -21,7 +21,7 @@ class Person extends Model
     //
     public function getData()
     {
-        return $this->id . ': ' . $this->name . ' (' . $this->age . ')';
+        return $this->id . ': ' . $this->name . ' (' . $this->age . ')'.' ->  (id : name (age))';
     }
 
     // has one結合
