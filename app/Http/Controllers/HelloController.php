@@ -391,4 +391,24 @@ class HelloController extends Controller
 
         return view('hello.auth', ['message' => $msg]);
     }
+
+    // 名前検索
+    public function find (Request $request) {
+        return view('hello.find', ['name' => '']);
+    }
+
+    // あいまい検索
+    public function search (Request $request)
+    {
+        $items = DB::table('people')
+            ->where('name', 'LIKE', '%' . $request->name . '%')
+            ->get();
+
+        $param = [
+            'name' => $request->name,
+            'items' => $items,
+        ];
+
+        return view('hello.find', $param);
+    }
 }

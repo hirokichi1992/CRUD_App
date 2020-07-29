@@ -39,6 +39,7 @@
 <p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">登録</a>）</p>
 @endif
 <button type="button" onclick="location.href='/hello/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
+<button type="button" onclick="location.href='/hello/find'" class="btn btn-primary" style="margin-bottom: 1rem;">Search</button>
 <table style="margin-bottom: 1rem;">
     <tr>
         <th><a href="hello?sort=id">ID</a></th>

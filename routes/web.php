@@ -76,6 +76,10 @@ Route::post('hello/del', 'HelloController@remove');
 // showメソッド（クエリビルダ）
 Route::get('hello/show', 'HelloController@show');
 
+//名前あいまい検索
+Route::get('hello/find', 'HelloController@find');
+Route::post('hello/find', 'HelloController@search');
+
 // Personモデル
 Route::get('person', 'PersonController@index');
 
