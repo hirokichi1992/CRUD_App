@@ -38,7 +38,6 @@
 @else
 <p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">登録</a>）</p>
 @endif
-<button type="button" onclick="location.href='/home'" class="btn btn-primary" style="margin-bottom: 1rem;">HOME</button>
 <button type="button" onclick="location.href='/hello/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
 <table style="margin-bottom: 1rem;">
     <tr>

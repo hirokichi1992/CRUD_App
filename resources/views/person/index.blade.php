@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-<button type="button" onclick="location.href='/home'" class="btn btn-primary" style="margin-bottom: 1rem;">HOME</button>
 <button type="button" onclick="location.href='/person/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
 <button type="button" onclick="location.href='/person/find'" class="btn btn-primary" style="margin-bottom: 1rem;">Search</button>
 <h3>List of Person has board</h3>

@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+<button type="button" onclick="location.href='/board/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
 <table>
     <tr>
         <th>Board_id</th>
