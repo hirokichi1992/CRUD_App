@@ -14,11 +14,12 @@
         <th>Person_id</th>
         <th>Message</th>
         <th>Name</th>
+        <th>Delete</th>
     </tr>
     @foreach($items as $item)
     <tr>
         <td>
-            {{$item->id}}
+            <a href="board/edit?id={{$item->id}}">{{$item->id}}</a>
         </td>
         <td>
             {{$item->person->id}}
@@ -28,6 +29,9 @@
         </td>
         <td>
             {{$item->person->name}}
+        </td>
+        <td>
+            <a href="board/del?id={{$item->id}}">Delete</a>
         </td>
     </tr>
     @endforeach

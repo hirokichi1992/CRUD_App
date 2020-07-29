@@ -106,6 +106,10 @@ Route::post('board/add', 'BoardController@create');
 Route::get('board/edit', 'BoardController@edit');
 Route::post('board/edit', 'BoardController@update');
 
+// 掲示板削除ページ
+Route::get('board/del', 'BoardController@delete');
+Route::post('board/del', 'BoardController@remove');
+
 // Restapp
 Route::resource('rest', 'RestappController');
 
