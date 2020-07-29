@@ -13,6 +13,7 @@
 
 # use Illuminate\Routing\Route;
 
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\HelloController;
 use App\Http\Middleware\HelloMiddleware;
 
@@ -100,6 +101,10 @@ Route::get('board', 'BoardController@index');
 // 掲示板投稿ページ
 Route::get('board/add', 'BoardController@add');
 Route::post('board/add', 'BoardController@create');
+
+// 掲示板更新ページ
+Route::get('board/edit', 'BoardController@edit');
+Route::post('board/edit', 'BoardController@update');
 
 // Restapp
 Route::resource('rest', 'RestappController');

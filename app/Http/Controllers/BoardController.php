@@ -30,4 +30,31 @@ class BoardController extends Controller
         $board->fill($form)->save();
         return redirect('/board');
     }
+
+    public function edit (Request $request)
+    {
+        $board = Board::find($request->id);
+        return view('board.edit', ['form' => $board]);
+    }
+
+    public function update (Request $request)
+    {
+        // バリデーション
+        $this->validate($request, Board::$rules);
+
+        // 編集対象レコードの特定
+        $board = Board::find($request->id);
+
+        // 送信されたフォームを取得
+        $form = $request->all();
+
+        // CSRF用非表示フィールド「_token」を削除
+        unset($form['_token']);
+
+        // インスタンスに値を設定（fill：個々のプロパティをまとめて設定できるメソッド）
+        $board->fill($form)->save();
+
+        // リダイレクト
+        return redirect('/board');
+    }
 }
