@@ -4,16 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Board;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
     //
     public function index (Request $request)
     {
+        // ログインしているUserモデルインスタンスを取得
+        $user = Auth::user();
+
         // Eagerローディング（DBへのアクセス数減を目的とする）
         // $items = Board::all();
         $items = Board::with('person')->get();
-        return view('board.index', ['items' => $items]);
+
+        $param = [
+            'items' => $items,
+            'user' => $user,
+        ];
+
+        return view('board.index', $param);
     }
 
     public function add (Request $request)

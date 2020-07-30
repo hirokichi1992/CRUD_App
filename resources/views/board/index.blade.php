@@ -8,6 +8,11 @@
 @endsection
 
 @section('content')
+@if(Auth::check())
+<p>こんにちは「 {{$user->name. '（'. $user->email . '）'}}」さん</p>
+@else
+<p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">登録</a>）</p>
+@endif
 <button type="button" onclick="location.href='/board/add'" class="btn btn-primary" style="margin-bottom: 1rem;">Add</button>
 <table>
     <tr>

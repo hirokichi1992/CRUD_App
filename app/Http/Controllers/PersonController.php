@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Person;
+use Illuminate\Support\Facades\Auth;
 
 class PersonController extends Controller
 {
     //
     public function index(Request $request)
     {
+        // ログインしているUserモデルインスタンスを取得
+        $user = Auth::user();
+
         // 投稿を持つ人
         $hasItems = Person::has('boards')->get();
 
@@ -18,6 +22,7 @@ class PersonController extends Controller
         $param = [
             'hasItems' => $hasItems,
             'noItems' => $noItems,
+            'user' => $user,
         ];
 
         return view('person.index', $param);
