@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HelloNameSearchRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\HelloRequest;
@@ -398,7 +399,7 @@ class HelloController extends Controller
     }
 
     // あいまい検索
-    public function search (Request $request)
+    public function search (HelloNameSearchRequest $request)
     {
         $items = DB::table('people')
             ->where('name', 'LIKE', '%' . $request->name . '%')

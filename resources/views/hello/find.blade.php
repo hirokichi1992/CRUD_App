@@ -8,6 +8,15 @@
 @endsection
 
 @section('content')
+@if(count($errors) > 0)
+<div class="alert alert-danger" role="alert">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <button type="button" onclick="history.back()" class="btn btn-primary" style="margin-bottom: 1rem;">Back</button>
 <form action="/hello/find" method="post">
     @csrf
