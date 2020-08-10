@@ -394,12 +394,13 @@ class HelloController extends Controller
     }
 
     // 名前検索
-    public function find (Request $request) {
+    public function find(Request $request)
+    {
         return view('hello.find', ['name' => '']);
     }
 
     // あいまい検索
-    public function search (HelloNameSearchRequest $request)
+    public function search(HelloNameSearchRequest $request)
     {
         $items = DB::table('people')
             ->where('name', 'LIKE', '%' . $request->name . '%')
@@ -411,5 +412,21 @@ class HelloController extends Controller
         ];
 
         return view('hello.find', $param);
+    }
+
+    // 検索サジェスト機能
+    public function suggest(Request $request)
+    {
+        $items = DB::table('people')
+            ->where('name', 'LIKE', '%' . $request->name . '%')
+            ->get();
+
+        $params = [];
+
+        foreach ($items as $item) {
+            array_push($params, $item->name);
+        }
+
+        return json_encode($params);
     }
 }

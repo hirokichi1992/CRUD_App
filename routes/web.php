@@ -136,3 +136,6 @@ Route::post('hello/auth', 'HelloController@postAuth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// 検索サジェスト機能
+Route::get('hello/suggest{name?}', 'HelloController@suggest');

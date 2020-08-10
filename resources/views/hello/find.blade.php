@@ -20,11 +20,9 @@
 <button type="button" onclick="history.back()" class="btn btn-primary" style="margin-bottom: 1rem;">Back</button>
 <form action="/hello/find" method="post">
     @csrf
-    <div class="input-group mb-3">
-        <input type="text" name="name" value="{{$name}}" class="form-control" placeholder="Enter name" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-        </div>
+    <div>
+        <input type="text" name="name" value="{{$name}}" id="suggest">
+        <button type="submit">Search</button>
     </div>
 </form>
 @if(isset($items))
@@ -54,4 +52,30 @@
 
 @section('footer')
 copylight 2020 hirokichi1992
+@endsection
+
+@section('script')
+<script>
+    $(function() {
+        $('#suggest').autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'suggest',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        name: request.term
+                    },
+                }).done(function(data) {
+                    // 通信成功時
+                    response(data);
+                }).fail(function(err) {
+                    // 通信失敗時
+                    // response("エラー");
+                });
+            }
+        });
+    });
+</script>
 @endsection
